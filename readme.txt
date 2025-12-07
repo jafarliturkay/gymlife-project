@@ -32,33 +32,31 @@ Yatay/Dikey kullanım destekli
 
 Grid yapıları ve esnek bileşenler sayesinde modern bir kullanıcı deneyimi sunar.
 
-🧭 Kullanılan Teknolojiler
-Teknoloji	Kullanım Amacı
-HTML5	Sayfa yapısı
-CSS3	Responsive tasarım, modern UI, grid layout
-JavaScript	Modal yönetimi, dinamik sekmeler, admin paneli arayüz kontrolleri
-Font Awesome	İkonlar
-Google Maps Embed	İletişim sayfası harita entegrasyonu
-🧮 İstatistik ve Chart Mantığı
+| 🧭 Kullanılan Teknolojiler
+| Teknoloji	Kullanım Amacı |
+| HTML5	Sayfa yapısı |
+| CSS3	Responsive tasarım, modern UI, grid layout |
+| JavaScript	Modal yönetimi, dinamik sekmeler, admin paneli arayüz kontrolleri |
+| Font Awesome	İkonlar |
+| Google Maps Embed	İletişim sayfası harita entegrasyonu |
 
+🧮 İstatistik ve Chart Mantığı
 Proje isterlerine uygun şekilde admin paneli içerisinde istatistik alanı oluşturulmuştur.
 İstenirse Chart.js entegrasyonu ile veri görselleştirme kolayca eklenebilir.
 
 📊 Teknik Özellikler ve Kullanılan Teknolojiler
-Kategori	Teknoloji / Sistem
-Site Temeli	HTML5 + CSS3 + Vanilla JavaScript
-Responsive Altyapı	Flexbox, Grid Layout, Mobile-First Tasarım
-UI & Tasarım	Modern koyu tema, CSS Animations, Hover Transitions
-İkon Seti	Font Awesome 6.5 (SVG tabanlı ikonlar)
-Slider Sistemi	Otomatik geçişli responsive slider yapısı
-Modal Yapısı	JavaScript ile dinamik modal açma/kapama sistemi
-İçerik Yönetimi Mantığı	Admin paneli üzerinden duyuru/paket/eğitmen/kullanıcı ekleme arayüzleri
-Form Sistemleri	HTML5 formları + tarih, dosya, e-posta alanları
-Harita Entegrasyonu	Google Maps Embed API
-Admin Paneli	Sekmeli yapı, istatistik kartları, tablo yönetimi, modal formlar
-Güvenlik Mantığı (Temsili)	Yalnızca front-end tarafında örnek yönetici paneli
-Performans	Minimal script kullanımı, sıkıştırılmış görseller, optimize CSS
-Sürüm Kontrol	Git + GitHub (main branch, remote origin)
+| Kategori	| Teknoloji / Sistem |
+| Site Temeli	| HTML5, CSS3, JavaScript |
+| Responsive Yapı	| Flexbox, Grid Layout, Mobile-First Tasarım |
+| UI / Tasarım | 	Modern Dark Theme, Smooth Animations, Hover Transitions |
+| İkon Seti | 	Font Awesome 6.5 |
+| Slider Sistemi | 	Otomatik geçişli + tıklanabilir slider yapısı |
+| Duyuru Sistemi | Modal pop-up, PDF/Word/Resim ekleme mantığı |
+| Admin Paneli | 	Dashboard, istatistik kartları, tablo yönetimi, modal CRUD |
+| Harita Entegrasyonu	| Google Maps Embed API |
+| Form Sistemleri	| HTML5 Form API — tarih, dosya, e-posta alanları |
+| Performans Optimizasyonu | 	Minimize CSS & JS, optimize görseller |
+| Sürüm Kontrol	| Git / GitHub (main branch) |
 
 🚀 Kurulum
 
