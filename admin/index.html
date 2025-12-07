@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Paneli | FITNESS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            background:#0f172a;
+            font-family:'Poppins',sans-serif;
+            color:#e5e7eb;
+            display:flex;
+            min-height:100vh;
+            animation:fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn{
+            from{
+                opacity:0;
+            }
+            to{
+                opacity:1;
+            }
+        }
+
+        .sidebar{
+            width:260px;
+            background:#020617;
+            border-right:1px solid rgba(249,115,22,0.2);
+            position:fixed;
+            height:100vh;
+            overflow-y:auto;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .sidebar-header{
+            padding:16px 20px;
+            border-bottom:1px solid rgba(249,115,22,0.2);
+        }
+
+        .sidebar-logo{
+            font-size:22px;
+            font-weight:700;
+            color:#f97316;
+            display:flex;
+            align-items:center;
+            gap:-5px;
+            position:relative;
+            padding-left:0px;
+            margin-left:-10px;
+        }
+
+        .sidebar-logo i{
+            margin-right:-5px;
+            margin-left:-8px;
+        }
+
+        .sidebar-menu{
+            flex:1;
+            padding:16px 0;
+            list-style:none;
+        }
+
+        .sidebar-menu li{
+            margin:0;
+        }
+
+        .sidebar-menu a{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            padding:12px 16px;
+            color:#cbd5f5;
+            text-decoration:none;
+            font-size:14px;
+            transition:all 0.2s ease;
+            border-left:3px solid transparent;
+        }
+
+        .sidebar-menu a:hover{
+            background:rgba(249,115,22,0.1);
+            border-left-color:#f97316;
+            color:#f97316;
+        }
+
+        .sidebar-menu a.active{
+            background:rgba(249,115,22,0.15);
+            border-left-color:#f97316;
+            color:#f97316;
+            font-weight:600;
+        }
+
+        .sidebar-menu i{
+            font-size:16px;
+            width:20px;
+            text-align:center;
+        }
+
+        .main-content{
+            margin-left:260px;
+            flex:1;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .topbar{
+            background:#020617;
+            border-bottom:1px solid rgba(249,115,22,0.2);
+            padding:16px 24px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            position:sticky;
+            top:0;
+            z-index:100;
+        }
+
+        .topbar-title{
+            font-size:20px;
+            font-weight:600;
+        }
+
+        .topbar-user{
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+
+        .user-avatar{
+            width:36px;
+            height:36px;
+            border-radius:50%;
+            background:linear-gradient(135deg,#f97316,#ea580c);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-weight:600;
+            font-size:14px;
+        }
+
+        .content{
+            flex:1;
+            padding:24px;
+            overflow-y:auto;
+        }
+
+        .dashboard-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+            gap:20px;
+            margin-bottom:32px;
+        }
+
+        .stat-card{
+            background:#020617;
+            border:1px solid rgba(249,115,22,0.2);
+            border-radius:12px;
+            padding:20px;
+            text-align:center;
+        }
+
+        .stat-value{
+            font-size:28px;
+            font-weight:700;
+            color:#f97316;
+            margin-bottom:6px;
+        }
+
+        .stat-label{
+            font-size:13px;
+            color:#9ca3af;
+            text-transform:uppercase;
+            letter-spacing:0.1em;
+        }
+
+        .section{
+            margin-bottom:32px;
+        }
+
+        .section-title{
+            font-size:18px;
+            font-weight:600;
+            margin-bottom:16px;
+            display:flex;
+            align-items:center;
+            gap:8px;
+        }
+
+        .section-title i{
+            color:#f97316;
+        }
+
+        .table-container{
+            background:#020617;
+            border:1px solid rgba(249,115,22,0.2);
+            border-radius:12px;
+            overflow:hidden;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        thead{
+            background:rgba(249,115,22,0.1);
+            border-bottom:1px solid rgba(249,115,22,0.2);
+        }
+
+        th{
+            padding:12px 16px;
+            text-align:left;
+            font-size:12px;
+            font-weight:600;
+            text-transform:uppercase;
+            letter-spacing:0.1em;
+            color:#f97316;
+        }
+
+        td{
+            padding:12px 16px;
+            font-size:13px;
+            border-bottom:1px solid rgba(249,115,22,0.1);
+        }
+
+        tbody tr:hover{
+            background:rgba(249,115,22,0.05);
+        }
+
+        .btn{
+            padding:8px 12px;
+            border-radius:6px;
+            border:none;
+            font-size:12px;
+            font-weight:600;
+            cursor:pointer;
+            transition:all 0.2s ease;
+            text-transform:uppercase;
+            letter-spacing:0.1em;
+            position:relative;
+            overflow:hidden;
+        }
+
+        .btn::before{
+            content:"";
+            position:absolute;
+            top:0;
+            left:-100%;
+            width:100%;
+            height:100%;
+            background:rgba(255,255,255,0.2);
+            transition:left 0.4s ease;
+        }
+
+        .btn:hover::before{
+            left:100%;
+        }
+
+        .btn-primary{
+            background:linear-gradient(135deg,#f97316,#ea580c);
+            color:#0b1120;
+        }
+
+        .btn-primary:hover{
+            filter:brightness(1.15);
+            transform:translateY(-2px);
+            box-shadow:0 6px 20px rgba(249,115,22,0.4);
+        }
+
+        .btn-secondary{
+            background:rgba(249,115,22,0.2);
+            color:#f97316;
+            border:1px solid rgba(249,115,22,0.5);
+        }
+
+        .btn-secondary:hover{
+            background:rgba(249,115,22,0.3);
+        }
+
+        .btn-danger{
+            background:rgba(239,68,68,0.2);
+            color:#fca5a5;
+            border:1px solid rgba(239,68,68,0.5);
+        }
+
+        .btn-danger:hover{
+            background:rgba(239,68,68,0.3);
+        }
+
+        .status-badge{
+            display:inline-block;
+            padding:4px 8px;
+            border-radius:4px;
+            font-size:11px;
+            font-weight:600;
+            text-transform:uppercase;
+        }
+
+        .status-active{
+            background:rgba(34,197,94,0.2);
+            color:#86efac;
+        }
+
+        .status-pending{
+            background:rgba(251,146,60,0.2);
+            color:#fdba74;
+        }
+
+        .status-inactive{
+            background:rgba(239,68,68,0.2);
+            color:#fca5a5;
+        }
+
+        .form-group{
+            margin-bottom:16px;
+        }
+
+        label{
+            display:block;
+            font-size:13px;
+            font-weight:600;
+            margin-bottom:6px;
+            color:#e5e7eb;
+        }
+
+        input,textarea,select{
+            width:100%;
+            padding:10px 12px;
+            border:1px solid rgba(249,115,22,0.3);
+            border-radius:8px;
+            background:#0f172a;
+            color:#e5e7eb;
+            font-size:13px;
+            font-family:'Poppins',sans-serif;
+        }
+
+        input:focus,textarea:focus,select:focus{
+            outline:none;
+            border-color:#f97316;
+            box-shadow:0 0 0 3px rgba(249,115,22,0.2);
+        }
+
+        .form-row{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:16px;
+        }
+
+        .modal{
+            display:none;
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.7);
+            z-index:1000;
+            align-items:center;
+            justify-content:center;
+        }
+
+        .modal.active{
+            display:flex;
+        }
+
+        .modal-content{
+            background:#020617;
+            border-radius:12px;
+            border:1px solid rgba(249,115,22,0.2);
+            padding:24px;
+            width:90%;
+            max-width:500px;
+            max-height:80vh;
+            overflow-y:auto;
+        }
+
+        .modal-header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:16px;
+            padding-bottom:12px;
+            border-bottom:1px solid rgba(249,115,22,0.2);
+        }
+
+        .modal-title{
+            font-size:18px;
+            font-weight:600;
+        }
+
+        .close-btn{
+            background:none;
+            border:none;
+            color:#9ca3af;
+            font-size:24px;
+            cursor:pointer;
+            transition:color 0.2s;
+        }
+
+        .close-btn:hover{
+            color:#f97316;
+        }
+
+        .btn-group{
+            display:flex;
+            gap:8px;
+            margin-top:16px;
+        }
+
+        .btn-group .btn{
+            flex:1;
+        }
+
+        @media(max-width:768px){
+            .sidebar{
+                width:100%;
+                height:auto;
+                position:static;
+                border-right:none;
+                border-bottom:1px solid rgba(249,115,22,0.2);
+                flex-direction:row;
+                overflow-x:auto;
+            }
+
+            .main-content{
+                margin-left:0;
+            }
+
+            .sidebar-menu{
+                display:flex;
+                padding:0;
+            }
+
+            .sidebar-menu li{
+                flex-shrink:0;
+            }
+
+            .content{
+                padding:16px;
+            }
+
+            .dashboard-grid{
+                grid-template-columns:repeat(2,1fr);
+            }
+
+            .form-row{
+                grid-template-columns:1fr;
+            }
+
+            .modal-content{
+                width:95%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <i class="fa-solid fa-dumbbell"></i>
+            FITNESS
+        </div>
+    </div>
+    <ul class="sidebar-menu">
+        <li><a href="#dashboard" onclick="showTab('dashboard')" class="menu-link active"><i class="fa-solid fa-chart-line"></i>Dashboard</a></li>
+        <li><a href="#announcements" onclick="showTab('announcements')" class="menu-link"><i class="fa-solid fa-bullhorn"></i>Duyurular</a></li>
+        <li><a href="#packages" onclick="showTab('packages')" class="menu-link"><i class="fa-solid fa-box"></i>Paketler</a></li>
+        <li><a href="#trainers" onclick="showTab('trainers')" class="menu-link"><i class="fa-solid fa-person"></i>Eğitmenler</a></li>
+        <li><a href="#units" onclick="showTab('units')" class="menu-link"><i class="fa-solid fa-building"></i>Birimler</a></li>
+        <li><a href="#messages" onclick="showTab('messages')" class="menu-link"><i class="fa-solid fa-envelope"></i>Mesajlar</a></li>
+        <li><a href="#users" onclick="showTab('users')" class="menu-link"><i class="fa-solid fa-users"></i>Kullanıcılar</a></li>
+        <li><a href="../index.html" class="menu-link" style="margin-top:auto;color:#9ca3af;"><i class="fa-solid fa-arrow-right-from-bracket"></i>Siteye Dön</a></li>
+    </ul>
+</aside>
+
+<div class="main-content">
+    <div class="topbar">
+        <div class="topbar-title">Admin Paneli</div>
+        <div class="topbar-user">
+            <span>Admin Kullanıcı</span>
+            <div class="user-avatar">A</div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <div id="dashboard" class="tab-content">
+            <h2 class="section-title"><i class="fa-solid fa-chart-line"></i>Dashboard</h2>
+
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-value">245</div>
+                    <div class="stat-label">Aktif Üye</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Eğitmen</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">23.4</div>
+                    <div class="stat-label">Ortalama BMI</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">32</div>
+                    <div class="stat-label">Bugün Hesaplanan BMI</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title"><i class="fa-solid fa-clock-rotate-left"></i>Son Duyurular</div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Başlık</th>
+                                <th>Tarih</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Yeni Üyeye Hoş Geldin</td>
+                                <td>06.12.2025</td>
+                                <td><span class="status-badge status-active">Aktif</span></td>
+                            </tr>
+                            <tr>
+                                <td>Beslenme Semineri</td>
+                                <td>05.12.2025</td>
+                                <td><span class="status-badge status-active">Aktif</span></td>
+                            </tr>
+                            <tr>
+                                <td>Hafta Sonu Maratonu</td>
+                                <td>04.12.2025</td>
+                                <td><span class="status-badge status-pending">Beklemede</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="announcements" class="tab-content" style="display:none;">
+            <div class="section-title"><i class="fa-solid fa-bullhorn"></i>Duyuru Yönetimi</div>
+            <button class="btn btn-primary" onclick="openModal('announcementModal')">+ Yeni Duyuru Ekle</button>
+
+            <div class="section">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Başlık</th>
+                                <th>İçerik Özeti</th>
+                                <th>Tarih</th>
+                                <th>Durum</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Yeni Üyeye Hoş Geldin İndirimi</td>
+                                <td>İlk kez kayıt olan üyeler için...</td>
+                                <td>06.12.2025</td>
+                                <td><span class="status-badge status-active">Aktif</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" onclick="alert('Düzenleme sayfası açılacak')">Düzenle</button>
+                                    <button class="btn btn-danger">Sil</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Beslenme Semineri</td>
+                                <td>Diyetisyen eşliğinde seminer...</td>
+                                <td>05.12.2025</td>
+                                <td><span class="status-badge status-active">Aktif</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" onclick="alert('Düzenleme sayfası açılacak')">Düzenle</button>
+                                    <button class="btn btn-danger">Sil</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="packages" class="tab-content" style="display:none;">
+            <div class="section-title"><i class="fa-solid fa-box"></i>Paket Yönetimi</div>
+            <button class="btn btn-primary" onclick="openModal('packageModal')">+ Yeni Paket Ekle</button>
+
+            <div class="section">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Paket Adı</th>
+                                <th>Fiyat</th>
+                                <th>Özellik Sayısı</th>
+                                <th>Durum</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Başlangıç Paketi</td>
+                                <td>999₺</td>
+                                <td>3</td>
+                                <td><span class="status-badge status-active">Aktif</span></td>
+                                <td>
+                                    <button class="btn btn-secondary">Düzenle</button>
+                                    <button class="btn btn-danger">Sil</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Cardio & Zayıflama</td>
+                                <td>1399₺</td>
+                                <td>3</td>
+                                <td><span class="status-badge status-active">Aktif</span></td>
+                                <td>
+                                    <button class="btn btn-secondary">Düzenle</button>
+                                    <button class="btn btn-danger">Sil</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PT Premium</td>
+                                <td>1999₺</td>
+                                <td>4</td>
+                                <td><span class="status-badge status-active">Aktif</span></td>
+                                <td>
+                                    <button class="btn btn-secondary">Düzenle</button>
+                                    <button class="btn btn-danger">Sil</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="trainers" class="tab-content" style="display:none;">
+            <div class="section-title"><i class="fa-solid fa-person"></i>Eğitmen Yönetimi</div>
+            <button class="btn btn-primary" onclick="openModal('trainerModal')">+ Yeni Eğitmen Ekle</button>
+
+            <div class="section">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ad Soyad</th>
+                                <th>Branş</th>
+                                <th>Deneyim</th>
+                                <th>Durum</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PT Selçuk Yıldırım</td>
+                                <td>Fonksiyonel Antrenman</td>
+                                <td>8 yıl</td>
+                                <td><span class="status-badge status-active">Aktif</span></td>
+                                <td>
+                                    <button class="btn btn-secondary">Düzenle</button>
+                                    <button class="btn btn-danger">Sil</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PT Elif Kaya</td>
+                                <td>Zayıflama Koçu</td>
+                                <td>6 yıl</td>
+                                <td><span class="status-badge status-active">Aktif</span></td>
+                                <td>
+                                    <button class="btn btn-secondary">Düzenle</button>
+                                    <button class="btn btn-danger">Sil</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="units" class="tab-content" style="display:none;">
+            <div class="section-title"><i class="fa-solid fa-building"></i>Birim Yönetimi</div>
+            <button class="btn btn-primary" onclick="openModal('unitModal')">+ Yeni Birim Ekle</button>
+
+            <div class="section">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Birim Adı</th>
+                                <th>Sorumlu Kişi</th>
+                                <th>Telefon</th>
+                                <th>Durum</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Merkez Şube</td>
+                                <td>PT Selçuk Yıldırım</td>
+                                <td>0262 000 00 01</td>
+                                <td><span class="status-badge status-active">Aktif</span></td>
+                                <td>
+                                    <button class="btn btn-secondary">Düzenle</button>
+                                    <button class="btn btn-danger">Sil</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Kadınlar Salonu</td>
+                                <td>PT Elif Kaya</td>
+                                <td>0262 000 00 02</td>
+                                <td><span class="status-badge status-active">Aktif</span></td>
+                                <td>
+                                    <button class="btn btn-secondary">Düzenle</button>
+                                    <button class="btn btn-danger">Sil</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Cardio Alanı</td>
+                                <td>PT Barış Demir</td>
+                                <td>0262 000 00 03</td>
+                                <td><span class="status-badge status-pending">Bakımda</span></td>
+                                <td>
+                                    <button class="btn btn-secondary">Düzenle</button>
+                                    <button class="btn btn-danger">Sil</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="messages" class="tab-content" style="display:none;">
+            <div class="section-title"><i class="fa-solid fa-envelope"></i>İletişim Mesajları</div>
+
+            <div class="section">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Gönderen</th>
+                                <th>E-posta</th>
+                                <th>Konu</th>
+                                <th>Tarih</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ahmet Yılmaz</td>
+                                <td>ahmet@example.com</td>
+                                <td>Paket sorgusu</td>
+                                <td>06.12.2025</td>
+                                <td>
+                                    <button class="btn btn-secondary" onclick="alert('Mesaj detay sayfası açılacak')">Görüntüle</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Fatma Şahin</td>
+                                <td>fatma@example.com</td>
+                                <td>Şikayet</td>
+                                <td>05.12.2025</td>
+                                <td>
+                                    <button class="btn btn-secondary" onclick="alert('Mesaj detay sayfası açılacak')">Görüntüle</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="users" class="tab-content" style="display:none;">
+            <div class="section-title"><i class="fa-solid fa-users"></i>Kullanıcı Yönetimi</div>
+            <button class="btn btn-primary" onclick="openModal('userModal')">+ Yeni Kullanıcı Ekle</button>
+
+            <div class="section">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ad Soyad</th>
+                                <th>E-posta</th>
+                                <th>Üyelik Tarihi</th>
+                                <th>Durum</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Barış Polat</td>
+                                <td>baris@example.com</td>
+                                <td>01.11.2025</td>
+                                <td><span class="status-badge status-active">Aktif</span></td>
+                                <td>
+                                    <button class="btn btn-secondary">Düzenle</button>
+                                    <button class="btn btn-danger">Sil</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Zeynep Aslı</td>
+                                <td>zeynep@example.com</td>
+                                <td>15.11.2025</td>
+                                <td><span class="status-badge status-active">Aktif</span></td>
+                                <td>
+                                    <button class="btn btn-secondary">Düzenle</button>
+                                    <button class="btn btn-danger">Sil</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="announcementModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title">Yeni Duyuru Ekle</div>
+            <button class="close-btn" onclick="closeModal('announcementModal')">&times;</button>
+        </div>
+        <form>
+            <div class="form-group">
+                <label>Duyuru Başlığı</label>
+                <input type="text" placeholder="Başlık yazınız">
+            </div>
+            <div class="form-group">
+                <label>İçerik</label>
+                <textarea placeholder="Duyuru içeriğini yazınız" style="min-height:120px;"></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Başlangıç Tarihi</label>
+                    <input type="date">
+                </div>
+                <div class="form-group">
+                    <label>Bitiş Tarihi</label>
+                    <input type="date">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Dosya Ekle (PDF/Word/Resim)</label>
+                <input type="file" multiple>
+            </div>
+            <div class="form-group">
+                <label>Durum</label>
+                <select>
+                    <option>Aktif</option>
+                    <option>Beklemede</option>
+                    <option>Arşivlenmiş</option>
+                </select>
+            </div>
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary">Ekle</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('announcementModal')">İptal</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="packageModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title">Yeni Paket Ekle</div>
+            <button class="close-btn" onclick="closeModal('packageModal')">&times;</button>
+        </div>
+        <form>
+            <div class="form-group">
+                <label>Paket Adı</label>
+                <input type="text" placeholder="Paket adını yazınız">
+            </div>
+            <div class="form-group">
+                <label>Fiyat (₺)</label>
+                <input type="number" placeholder="Fiyat giriniz">
+            </div>
+            <div class="form-group">
+                <label>Açıklama</label>
+                <textarea placeholder="Paket açıklaması" style="min-height:100px;"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Özellikler</label>
+                <textarea placeholder="Özellikler (her satırda bir)" style="min-height:100px;"></textarea>
+            </div>
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary">Ekle</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('packageModal')">İptal</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="trainerModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title">Yeni Eğitmen Ekle</div>
+            <button class="close-btn" onclick="closeModal('trainerModal')">&times;</button>
+        </div>
+        <form>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Ad</label>
+                    <input type="text" placeholder="Ad">
+                </div>
+                <div class="form-group">
+                    <label>Soyad</label>
+                    <input type="text" placeholder="Soyad">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Branş</label>
+                <input type="text" placeholder="Branşı yazınız">
+            </div>
+            <div class="form-group">
+                <label>Deneyim (yıl)</label>
+                <input type="number" placeholder="Deneyim yılı">
+            </div>
+            <div class="form-group">
+                <label>Biyografi</label>
+                <textarea placeholder="Eğitmen hakkında bilgi" style="min-height:100px;"></textarea>
+            </div>
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary">Ekle</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('trainerModal')">İptal</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="unitModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title">Yeni Birim Ekle</div>
+            <button class="close-btn" onclick="closeModal('unitModal')">&times;</button>
+        </div>
+        <form>
+            <div class="form-group">
+                <label>Birim Adı</label>
+                <input type="text" placeholder="Birim adını yazınız">
+            </div>
+            <div class="form-group">
+                <label>Sorumlu Kişi</label>
+                <input type="text" placeholder="Sorumlu kişi adını yazınız">
+            </div>
+            <div class="form-group">
+                <label>Telefon</label>
+                <input type="tel" placeholder="İletişim numarası">
+            </div>
+            <div class="form-group">
+                <label>Durum</label>
+                <select>
+                    <option>Aktif</option>
+                    <option>Beklemede</option>
+                    <option>Bakımda</option>
+                    <option>Pasif</option>
+                </select>
+            </div>
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary">Ekle</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('unitModal')">İptal</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="userModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title">Yeni Kullanıcı Ekle</div>
+            <button class="close-btn" onclick="closeModal('userModal')">&times;</button>
+        </div>
+        <form>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Ad</label>
+                    <input type="text" placeholder="Ad">
+                </div>
+                <div class="form-group">
+                    <label>Soyad</label>
+                    <input type="text" placeholder="Soyad">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>E-posta</label>
+                <input type="email" placeholder="E-posta">
+            </div>
+            <div class="form-group">
+                <label>Paket</label>
+                <select>
+                    <option>Başlangıç Paketi</option>
+                    <option>Cardio & Zayıflama</option>
+                    <option>PT Premium</option>
+                </select>
+            </div>
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary">Ekle</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('userModal')">İptal</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function showTab(tabName){
+    var tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(function(tab){
+        tab.style.display = 'none';
+    });
+    document.getElementById(tabName).style.display = 'block';
+
+    var links = document.querySelectorAll('.menu-link');
+    links.forEach(function(link){
+        link.classList.remove('active');
+    });
+    event.target.closest('.menu-link').classList.add('active');
+}
+
+function openModal(modalId){
+    document.getElementById(modalId).classList.add('active');
+}
+
+function closeModal(modalId){
+    document.getElementById(modalId).classList.remove('active');
+}
+
+var modals = document.querySelectorAll('.modal');
+modals.forEach(function(modal){
+    modal.addEventListener('click', function(e){
+        if(e.target === modal){
+            modal.classList.remove('active');
+        }
+    });
+});
+
+document.querySelectorAll('form').forEach(function(form){
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
+        alert('Veriler kaydedildi! (Backend entegrasyonu yapılacak)');
+        closeModal(form.closest('.modal').id);
+    });
+});
+</script>
+
+</body>
+</html>

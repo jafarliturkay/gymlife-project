@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Birimlerimiz | FITNESS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        html{
+            scroll-behavior:smooth;
+        }
+        body{
+            margin:0;
+            background:#020617;
+            font-family:'Poppins',sans-serif;
+            color:#e5e7eb;
+            animation:fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn{
+            from{opacity:0;}
+            to{opacity:1;}
+        }
+
+        a{
+            text-decoration:none;
+            color:inherit;
+        }
+
+        header{
+            width:100%;
+            position:fixed;
+            top:0;
+            left:0;
+            z-index:999;
+            display:flex;
+            justify-content:center;
+            background:rgba(0,0,0,0.85);
+            backdrop-filter:blur(8px);
+            border-bottom:1px solid rgba(249,115,22,0.3);
+        }
+
+        .header-inner{
+            width:100%;
+            max-width:1150px;
+            padding:14px 20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .logo{
+            font-size:28px;
+            font-weight:700;
+            letter-spacing:2px;
+            color:#ff5e00;
+            position:relative;
+            padding-left:38px;
+        }
+
+        .logo::before{
+            content:"";
+            position:absolute;
+            left:0;
+            top:50%;
+            width:28px;
+            height:3px;
+            background:#ff5e00;
+            transform:translateY(-50%);
+            border-radius:6px;
+        }
+
+        .logo::after{
+            content:"\f44b";
+            font-family:"Font Awesome 6 Free";
+            font-weight:900;
+            position:absolute;
+            left:10px;
+            top:50%;
+            transform:translateY(-50%);
+            font-size:16px;
+            color:#ff5e00;
+            animation:dumbbell-swing 1.2s ease-in-out infinite;
+            transform-origin:center center;
+        }
+
+        @keyframes dumbbell-swing{
+            0%,100%{transform:translateY(-50%) rotate(0deg);}
+            25%{transform:translateY(-50%) rotate(12deg);}
+            50%{transform:translateY(-50%) rotate(0deg);}
+            75%{transform:translateY(-50%) rotate(-12deg);}
+        }
+
+        nav .nav-pill{
+            background:#020617;
+            border-radius:999px;
+            padding:4px 14px;
+            border:1px solid rgba(148,163,184,0.4);
+            box-shadow:0 16px 35px rgba(0,0,0,0.45);
+        }
+
+        nav .nav-pill>ul{
+            display:flex;
+            gap:20px;
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+
+        nav li{
+            position:relative;
+        }
+
+        nav a{
+            padding:8px 14px;
+            border-radius:999px;
+            font-size:14px;
+            font-weight:500;
+            color:#e5e7eb;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            white-space:nowrap;
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                transform 0.15s ease,
+                box-shadow 0.15s ease;
+        }
+
+        nav a:hover{
+            background:radial-gradient(circle at top,#38bdf8 0,#020617 55%);
+            color:#ffffff;
+            transform:translateY(-2px);
+        }
+
+        nav a.active{
+            background:linear-gradient(135deg,#f97316,#ea580c);
+            color:#0b1120;
+            box-shadow:0 8px 22px rgba(249,115,22,0.55);
+        }
+
+        .dropdown{
+            position:absolute;
+            top:100%;
+            left:50%;
+            transform:translate(-50%,0);
+            min-width:190px;
+            background:#020617;
+            border-radius:14px;
+            padding:8px 10px;
+            border:1px solid rgba(148,163,184,0.35);
+            box-shadow:0 18px 35px rgba(0,0,0,0.8);
+            opacity:0;
+            pointer-events:none;
+            transition:opacity 0.15s ease,transform 0.15s ease;
+            list-style:none;
+            margin:0;
+        }
+
+        .dropdown li{
+            margin:2px 0;
+        }
+
+        .dropdown a{
+            width:100%;
+            justify-content:flex-start;
+            padding:7px 10px;
+            border-radius:10px;
+            font-size:13px;
+        }
+
+        .dropdown a:hover{
+            background:rgba(15,23,42,0.9);
+            transform:none;
+            box-shadow:none;
+        }
+
+        .has-dropdown:hover>.dropdown{
+            opacity:1;
+            pointer-events:auto;
+            transform:translate(-50%,0);
+        }
+
+        .hero{
+            height:60vh;
+            background:url('img/hero/new1.jpg') center/cover no-repeat;
+            display:flex;
+            align-items:center;
+            padding:0 6%;
+            position:relative;
+            margin-top:90px;
+        }
+
+        .hero::after{
+            content:"";
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.55);
+        }
+
+        .hero-inner{
+            position:relative;
+            z-index:2;
+            width:100%;
+            max-width:1100px;
+            margin:0 auto;
+        }
+
+        .hero-content{
+            max-width:560px;
+        }
+
+        .hero h1{
+            font-size:46px;
+            line-height:1.1;
+            margin:0 0 10px;
+        }
+
+        .hero h1 strong{
+            color:#ff5e00;
+        }
+
+        .hero p{
+            opacity:0.9;
+            margin:10px 0 20px;
+            font-size:17px;
+            max-width:520px;
+        }
+
+        .hero-tags{
+            display:flex;
+            flex-wrap:wrap;
+            gap:8px;
+            margin-top:10px;
+        }
+
+        .hero-tag{
+            font-size:12px;
+            padding:5px 12px;
+            border-radius:999px;
+            border:1px solid rgba(148,163,184,0.7);
+            background:rgba(15,23,42,0.9);
+        }
+
+        .section{
+            padding:80px 6% 60px;
+        }
+
+        .section-title{
+            text-align:center;
+            margin-bottom:40px;
+        }
+
+        .section-title span{
+            color:#ff5e00;
+            font-size:16px;
+            font-weight:600;
+            text-transform:uppercase;
+            letter-spacing:0.16em;
+        }
+
+        .section-title h2{
+            font-size:32px;
+            margin-top:10px;
+            position:relative;
+            display:inline-block;
+            padding-bottom:6px;
+        }
+
+        .section-title h2::after{
+            content:"";
+            position:absolute;
+            width:60%;
+            height:3px;
+            background:#ff5e00;
+            bottom:0;
+            left:20%;
+            border-radius:6px;
+            box-shadow:0 0 12px #ff5e00;
+        }
+
+        .section-title p{
+            max-width:620px;
+            margin:14px auto 0;
+            font-size:14px;
+            color:#cbd5f5;
+            line-height:1.7;
+        }
+
+        .units-grid{
+            max-width:1100px;
+            margin:0 auto;
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:24px;
+        }
+
+        .unit-card{
+            background:radial-gradient(circle at top,rgba(2,6,23,0.92) 0,rgba(3,7,18,0.88) 65%);
+            border-radius:16px;
+            padding:20px 18px 18px;
+            border:1px solid rgba(31,41,55,0.9);
+            box-shadow:0 18px 40px rgba(0,0,0,0.7);
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+            position:relative;
+            background-size:cover;
+            background-position:center;
+            overflow:hidden;
+        }
+
+        .unit-card::before{
+            content:"";
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:radial-gradient(circle at top,rgba(2,6,23,0.92) 0,rgba(3,7,18,0.88) 65%);
+            z-index:1;
+        }
+
+        .unit-card > *{
+            position:relative;
+            z-index:2;
+        }
+
+        #agirlik{
+            background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=600&fit=crop');
+        }
+
+        #cardioalani{
+            background-image:url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&h=600&fit=crop');
+        }
+
+        #studyo{
+            background-image:url('img/blog/grup.jpg');
+        }
+
+        .unit-card:hover{
+            transform:translateY(-6px);
+            border-color:#f97316;
+            box-shadow:0 26px 55px rgba(0,0,0,0.9);
+        }
+
+        .unit-icon{
+            font-size:28px;
+            color:#f97316;
+            margin-bottom:10px;
+        }
+
+        .unit-label{
+            font-size:11px;
+            text-transform:uppercase;
+            letter-spacing:0.14em;
+            color:#9ca3af;
+            margin-bottom:4px;
+        }
+
+        .unit-card h3{
+            margin:0 0 8px;
+            font-size:20px;
+        }
+
+        .unit-desc{
+            font-size:13px;
+            color:#cbd5f5;
+            line-height:1.6;
+            margin-bottom:10px;
+        }
+
+        .unit-meta{
+            font-size:12px;
+            color:#9ca3af;
+            margin-bottom:10px;
+        }
+
+        .unit-features{
+            list-style:none;
+            padding:0;
+            margin:10px 0 0;
+            font-size:13px;
+        }
+
+        .unit-features li{
+            margin-bottom:6px;
+            display:flex;
+            gap:6px;
+            align-items:flex-start;
+        }
+
+        .unit-features i{
+            margin-top:2px;
+            font-size:11px;
+            color:#22c55e;
+        }
+
+        .units-note{
+            max-width:900px;
+            margin:28px auto 0;
+            font-size:13px;
+            color:#9ca3af;
+            line-height:1.7;
+            text-align:center;
+        }
+
+        .mini-stats{
+            max-width:900px;
+            margin:60px auto 0;
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:20px;
+        }
+
+        .mini-stat{
+            text-align:center;
+            padding:16px 12px;
+            background:#020617;
+            border-radius:14px;
+            border:1px solid rgba(31,41,55,1);
+        }
+
+        .mini-stat h4{
+            margin:0 0 6px;
+            font-size:22px;
+            color:#f97316;
+        }
+
+        .mini-stat span{
+            font-size:12px;
+            color:#cbd5f5;
+            text-transform:uppercase;
+            letter-spacing:.1em;
+        }
+
+        footer{
+            padding:40px 6% 30px;
+            background:#030712;
+            margin-top:50px;
+        }
+
+        .copy{
+            text-align:center;
+            opacity:0.7;
+            font-size:14px;
+        }
+
+        @media(max-width:992px){
+            .hero{
+                height:auto;
+                padding-top:130px;
+                padding-bottom:40px;
+            }
+            .units-grid{
+                grid-template-columns:repeat(2,1fr);
+            }
+            .mini-stats{
+                grid-template-columns:repeat(3,1fr);
+            }
+        }
+
+        @media(max-width:768px){
+            .header-inner{
+                flex-direction:column;
+                gap:10px;
+            }
+            nav .nav-pill{
+                padding:6px 14px;
+            }
+            nav .nav-pill>ul{
+                gap:14px;
+            }
+            nav a{
+                font-size:12px;
+                padding:7px 12px;
+            }
+            .units-grid{
+                grid-template-columns:1fr;
+            }
+            .mini-stats{
+                grid-template-columns:repeat(2,1fr);
+            }
+        }
+
+        @media(max-width:520px){
+            .hero{
+                padding-left:5%;
+                padding-right:5%;
+            }
+            .mini-stats{
+                grid-template-columns:1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="logo">FITNESS</div>
+        <nav>
+            <div class="nav-pill">
+                <ul>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                    <li><a href="misyon-vizyon.html">Misyon-Vizyon</a></li>
+
+                    <li class="has-dropdown">
+                        <a href="paketler.html">Ürünlerimiz</a>
+                        <ul class="dropdown">
+                            <li><a href="paketler.html#baslangic">Başlangıç Paketi</a></li>
+                            <li><a href="paketler.html#cardio">Cardio & Zayıflama</a></li>
+                            <li><a href="paketler.html#ptpremium">PT Premium</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="has-dropdown">
+                        <a href="birimlerimiz.html" class="active">Birimlerimiz</a>
+                        <ul class="dropdown">
+                            <li><a href="#agirlik">Ağırlık Salonu</a></li>
+                            <li><a href="#cardioalani">Cardio Alanı</a></li>
+                            <li><a href="#studyo">Grup Ders Stüdyosu</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="egitmenler.html">Eğitmenler</a></li>
+                    <li><a href="galeri.html">Galeri</a></li>
+                    <li class="has-dropdown">
+                        <a href="#">Araçlar</a>
+                        <div class="dropdown">
+                            <ul>
+                                <li><a href="bmi.html">BMI Hesapla</a></li>
+                                <li><a href="istatistikler.html">İstatistikler</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="duyurular.html">Duyurular</a></li>
+                    <li><a href="iletisim.html">İletişim</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-content">
+            <h1>Salon <strong>Birimlerimiz</strong></h1>
+            <p>
+                FITNESS içinde antrenmanların hedefe göre planlanabildiği üç ana alan bulunur:
+                ağırlık, kardiyo ve grup ders stüdyosu. Her biri farklı bir ihtiyaca hizmet eder
+                ama aynı amaç için çalışır: daha güçlü ve sağlıklı bir sen.
+            </p>
+            <div class="hero-tags">
+                <div class="hero-tag">Ağırlık Salonu</div>
+                <div class="hero-tag">Cardio Alanı</div>
+                <div class="hero-tag">Grup Ders Stüdyosu</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-title">
+        <span>Birimlerimiz</span>
+        <h2>Hedefine Göre Alan Seç</h2>
+        <p>
+            Her üyenin hedefi, spor geçmişi ve motivasyonu farklıdır. Bu yüzden salonu tek tip
+            makinelerden ibaret bir alan olarak değil, farklı amaçlara odaklanan birimler
+            şeklinde tasarladık. Aşağıdaki birimlerin her biri, projede “birim yapısı”nı
+            anlatmak için de kullanılabilir.
+        </p>
+    </div>
+
+    <div class="units-grid">
+        <article class="unit-card" id="agirlik">
+            <div class="unit-icon"><i class="fa-solid fa-dumbbell"></i></div>
+            <div class="unit-label">Birim 01</div>
+            <h3>Ağırlık Salonu</h3>
+            <p class="unit-desc">
+                Serbest ağırlıklar, makineler ve fonksiyonel ekipmanlarla güç, kas kazanımı
+                ve şekillenme odaklı antrenman alanıdır. Programlar seviyeye göre
+                başlanır, form bozulmadan yoğunluk artırılır.
+            </p>
+            <div class="unit-meta">
+                Hedef: Güç artışı, kas kütlesi, sıkılaşma<br>
+                Kullanıcı: Orta – ileri seviye, gözetimli yeni başlayanlar
+            </div>
+            <ul class="unit-features">
+                <li><i class="fa-solid fa-check"></i><span>Serbest ağırlık (dambıl, barbell, kettlebell) ve makine kombinasyonu</span></li>
+                <li><i class="fa-solid fa-check"></i><span>Temel çok eklemli hareketler (squat, bench, deadlift) için alan</span></li>
+                <li><i class="fa-solid fa-check"></i><span>Fonksiyonel rack, cable station ve core egzersiz köşeleri</span></li>
+                <li><i class="fa-solid fa-check"></i><span>PT eşliğinde form kontrolü ve ağırlık artış takibi mantığı</span></li>
+            </ul>
+        </article>
+
+        <article class="unit-card" id="cardioalani">
+            <div class="unit-icon"><i class="fa-solid fa-person-running"></i></div>
+            <div class="unit-label">Birim 02</div>
+            <h3>Cardio Alanı</h3>
+            <p class="unit-desc">
+                Yağ yakımı, kondisyon, nefes kapasitesi ve genel sağlığı destekleyen
+                kardiyo makinelerinin bulunduğu alandır. Interval ve sabit tempo
+                antrenmanları için uygundur.
+            </p>
+            <div class="unit-meta">
+                Hedef: Yağ yakımı, kondisyon, nabız kontrolü<br>
+                Kullanıcı: Tüm seviyeler, kilo verme odaklı üyeler
+            </div>
+            <ul class="unit-features">
+                <li><i class="fa-solid fa-check"></i><span>Koşu bantları, eliptik, bisiklet ve merdiven makineleri</span></li>
+                <li><i class="fa-solid fa-check"></i><span>Interval (HIIT) ve steady state cardio planları için alan</span></li>
+                <li><i class="fa-solid fa-check"></i><span>Hedef nabız aralıklarını gösteren, eğitmen yönlendirmesine uygun yapı</span></li>
+                <li><i class="fa-solid fa-check"></i><span>Projede “Cardio &amp; Zayıflama” paketleriyle ilişkilendirilebilir alan</span></li>
+            </ul>
+        </article>
+
+        <article class="unit-card" id="studyo">
+            <div class="unit-icon"><i class="fa-solid fa-people-group"></i></div>
+            <div class="unit-label">Birim 03</div>
+            <h3>Grup Ders Stüdyosu</h3>
+            <p class="unit-desc">
+                Spinning, HIIT, pilates, mobilite ve stretching gibi grup derslerinin
+                yapıldığı, motivasyonu yüksek ve dinamik atmosfere sahip kapalı alandır.
+            </p>
+            <div class="unit-meta">
+                Hedef: Motivasyon, hareket çeşitliliği, esneklik<br>
+                Kullanıcı: Grup çalışmayı seven tüm üyeler
+            </div>
+            <ul class="unit-features">
+                <li><i class="fa-solid fa-check"></i><span>Haftalık grup ders takvimine göre kullanılan stüdyo alanı</span></li>
+                <li><i class="fa-solid fa-check"></i><span>Ses sistemi, ayna düzeni ve ekipman depolama rafları</span></li>
+                <li><i class="fa-solid fa-check"></i><span>Spinning, HIIT ve pilates seansları için rezervasyon mantığı</span></li>
+                <li><i class="fa-solid fa-check"></i><span>“Duyurular” sayfasındaki etkinlikler ile ilişkilendirilebilen birim</span></li>
+            </ul>
+        </article>
+    </div>
+
+    <div class="mini-stats">
+        <div class="mini-stat">
+            <h4>40+</h4>
+            <span>Ağırlık İstasyonu</span>
+        </div>
+        <div class="mini-stat">
+            <h4>25+</h4>
+            <span>Cardio Ekipmanı</span>
+        </div>
+        <div class="mini-stat">
+            <h4>15+</h4>
+            <span>Grup Dersi / Hafta</span>
+        </div>
+    </div>
+</section>
+
+<footer style="background:#030712;padding:60px 6% 40px;margin-top:80px;border-top:1px solid rgba(249,115,22,0.3);">
+    <div style="max-width:1100px;margin:0 auto;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px;margin-bottom:40px;">
+            <div>
+                <h3 style="color:#f97316;margin-top:0;font-size:18px;">FITNESS CENTER</h3>
+                <p style="color:#cbd5f5;line-height:1.8;font-size:14px;">
+                    Spor ve fitness alanında başarı, sadece çaba değil, doğru rehberlik ve ortam ile mümkün. Biz sizin bu yolculuğunuzda en iyi ortak olmayı amaçlıyoruz.
+                </p>
+            </div>
+            <div>
+                <h4 style="color:#e5e7eb;margin-bottom:14px;font-size:16px;">İletişim Bilgileri</h4>
+                <p style="color:#cbd5f5;margin:8px 0;font-size:14px;">
+                    <strong>Adres:</strong><br>
+                    Kocaeli, Türkiye
+                </p>
+                <p style="color:#cbd5f5;margin:8px 0;font-size:14px;">
+                    <strong>Telefon:</strong><br>
+                    +90 (506) 594-1502
+                </p>
+                <p style="color:#cbd5f5;margin:8px 0;font-size:14px;">
+                    <strong>E-Mail:</strong><br>
+                    info@fitnesscenter.com
+                </p>
+            </div>
+            <div>
+                <h4 style="color:#e5e7eb;margin-bottom:14px;font-size:16px;">Hızlı Linkler</h4>
+                <ul style="list-style:none;padding:0;margin:0;">
+                    <li style="margin-bottom:8px;"><a href="index.html" style="color:#cbd5f5;text-decoration:none;font-size:14px;transition:color 0.2s;">Ana Sayfa</a></li>
+                    <li style="margin-bottom:8px;"><a href="hakkimizda.html" style="color:#cbd5f5;text-decoration:none;font-size:14px;transition:color 0.2s;">Hakkımızda</a></li>
+                    <li style="margin-bottom:8px;"><a href="paketler.html" style="color:#cbd5f5;text-decoration:none;font-size:14px;transition:color 0.2s;">Paketlerimiz</a></li>
+                    <li style="margin-bottom:8px;"><a href="iletisim.html" style="color:#cbd5f5;text-decoration:none;font-size:14px;transition:color 0.2s;">İletişim</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="color:#e5e7eb;margin-bottom:14px;font-size:16px;">Sosyal Medya</h4>
+                <div style="display:flex;gap:12px;">
+                    <a href="#" style="width:36px;height:36px;border-radius:50%;background:rgba(249,115,22,0.2);border:1px solid rgba(249,115,22,0.5);display:flex;align-items:center;justify-content:center;color:#f97316;text-decoration:none;font-size:16px;transition:all 0.2s;">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="#" style="width:36px;height:36px;border-radius:50%;background:rgba(249,115,22,0.2);border:1px solid rgba(249,115,22,0.5);display:flex;align-items:center;justify-content:center;color:#f97316;text-decoration:none;font-size:16px;transition:all 0.2s;">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" style="width:36px;height:36px;border-radius:50%;background:rgba(249,115,22,0.2);border:1px solid rgba(249,115,22,0.5);display:flex;align-items:center;justify-content:center;color:#f97316;text-decoration:none;font-size:16px;transition:all 0.2s;">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div style="border-top:1px solid rgba(249,115,22,0.2);padding-top:20px;text-align:center;">
+            <p style="color:#9ca3af;font-size:13px;margin:0;">
+                © 2025 FITNESS CENTER - Tüm Hakları Saklıdır.<br>
+                Web Tasarımı: <strong>Kocaeli Üniversitesi - Bilişim Sistemleri Mühendisliği</strong>
+            </p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

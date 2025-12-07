@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Ödeme | FITNESS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+    margin:0;
+    background:#0f172a;
+    font-family:'Poppins',sans-serif;
+    color:#e5e7eb;
+}
+.container{
+    max-width:450px;
+    margin:80px auto;
+    background:#020617;
+    padding:28px;
+    border-radius:16px;
+    border:1px solid rgba(148,163,184,0.35);
+    box-shadow:0 20px 40px rgba(0,0,0,0.55);
+}
+h1{
+    text-align:center;
+    margin-bottom:12px;
+    font-size:26px;
+}
+.paket-info{
+    text-align:center;
+    margin-bottom:22px;
+    color:#f97316;
+    font-size:15px;
+}
+label{
+    display:block;
+    margin-top:14px;
+    margin-bottom:6px;
+    font-size:14px;
+}
+input{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid rgba(148,163,184,0.4);
+    background:#0f172a;
+    color:#fff;
+    font-size:15px;
+    letter-spacing:1px;
+}
+.error-text{
+    font-size:12px;
+    color:#ef4444;
+    margin-top:4px;
+    min-height:14px;
+}
+button{
+    width:100%;
+    margin-top:24px;
+    padding:12px;
+    font-size:16px;
+    font-weight:600;
+    color:#0b1120;
+    border:none;
+    border-radius:999px;
+    background:linear-gradient(135deg,#f97316,#ea580c);
+    cursor:pointer;
+}
+.success{
+    margin-top:18px;
+    text-align:center;
+    font-size:15px;
+    color:#4ade80;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Ödeme İşlemi</h1>
+    <div class="paket-info" id="paketInfo">Seçilen Paket: Fitness Üyeliği</div>
+    <div class="paket-info" id="fiyatInfo" style="color: #22c55e;">Ödeyeceğiniz Miktar: 0₺</div>
+
+    <label>Kart Numarası</label>
+    <input type="text" id="cardNumber" maxlength="19" placeholder="XXXX XXXX XXXX XXXX">
+    <div id="cardError" class="error-text"></div>
+
+    <label>Son Kullanma Tarihi (AA/YY)</label>
+    <input type="text" id="expiry" maxlength="5" placeholder="AA/YY">
+    <div id="dateError" class="error-text"></div>
+
+    <label>CVV</label>
+    <input type="password" id="cvv" maxlength="3" placeholder="3 haneli CVV">
+    <div id="cvvError" class="error-text"></div>
+
+    <button id="payBtn">Ödemeyi Tamamla</button>
+    <div id="successMsg" class="success"></div>
+</div>
+
+<script>
+var cardNumber = document.getElementById("cardNumber");
+var expiry = document.getElementById("expiry");
+var cvv = document.getElementById("cvv");
+var cardError = document.getElementById("cardError");
+var dateError = document.getElementById("dateError");
+var cvvError = document.getElementById("cvvError");
+var successMsg = document.getElementById("successMsg");
+var paketInfo = document.getElementById("paketInfo");
+var fiyatInfo = document.getElementById("fiyatInfo");
+
+var paketAdiMap = {
+    "baslangic": "Başlangıç Paketi",
+    "cardio": "Cardio & Zayıflama",
+    "pt": "PT Premium"
+};
+
+function getQueryParam(param) {
+    var urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+window.addEventListener("load", function() {
+    var paket = getQueryParam("paket");
+    var fiyat = getQueryParam("fiyat");
+    
+    if (paket && paketAdiMap[paket]) {
+        paketInfo.textContent = "Seçilen Paket: " + paketAdiMap[paket];
+    }
+    
+    if (fiyat) {
+        fiyatInfo.textContent = "Ödeyeceğiniz Miktar: " + fiyat + "₺";
+    }
+});
+
+function checkBlockRepeat(block){
+    return /(.)\1{3}/.test(block);
+}
+
+cardNumber.addEventListener("input", function(){
+    var raw = cardNumber.value.replace(/\D/g,"");
+    if(raw.length > 16) raw = raw.slice(0,16);
+    var formatted = raw.match(/.{1,4}/g);
+    cardNumber.value = formatted ? formatted.join(" ") : "";
+    cardError.textContent = "";
+    var blocks = cardNumber.value.split(" ");
+    for(var i=0;i<blocks.length;i++){
+        if(blocks[i].length === 4){
+            if(checkBlockRepeat(blocks[i])){
+                cardError.textContent = "Geçersiz kart numarası";
+            }
+        }
+    }
+});
+
+expiry.addEventListener("input", function(){
+    var v = expiry.value.replace(/\D/g,"");
+    if(v.length >= 3){
+        v = v.slice(0,4);
+        v = v.slice(0,2) + "/" + v.slice(2);
+    }
+    expiry.value = v;
+    dateError.textContent = "";
+    if(v.length === 5){
+        var ay = parseInt(v.slice(0,2));
+        var yil = parseInt(v.slice(3,5));
+        var now = new Date();
+        var cy = now.getFullYear() % 100;
+        var cm = now.getMonth() + 1;
+        if(ay < 1 || ay > 12){
+            dateError.textContent = "Geçersiz tarih";
+        } 
+        else if(yil < cy || (yil === cy && ay < cm)){
+            dateError.textContent = "Kart süresi geçmiş";
+        }
+    }
+});
+
+cvv.addEventListener("input", function(){
+    cvv.value = cvv.value.replace(/\D/g,"").slice(0,3);
+    if(cvv.value.length === 3){
+        cvvError.textContent = "";
+    }
+});
+
+document.getElementById("payBtn").addEventListener("click", function(){
+    var errors = 0;
+    var raw = cardNumber.value.replace(/\D/g,"");
+    if(raw.length !== 16 || cardError.textContent !== ""){
+        cardError.textContent = "Kart numarası geçersiz";
+        errors++;
+    }
+    if(expiry.value.length !== 5 || dateError.textContent !== ""){
+        dateError.textContent = "Tarih geçersiz";
+        errors++;
+    }
+    if(cvv.value.length !== 3){
+        cvvError.textContent = "CVV geçersiz";
+        errors++;
+    }
+    if(errors === 0){
+        successMsg.textContent = "Ödeme başarılı!";
+    }
+});
+</script>
+
+</body>
+</html>

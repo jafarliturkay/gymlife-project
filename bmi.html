@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>BMI Hesapla | FITNESS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        html{
+            scroll-behavior:smooth;
+        }
+        body{
+            margin:0;
+            background:#020617;
+            font-family:'Poppins',sans-serif;
+            color:#e5e7eb;
+            animation:fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn{
+            from{opacity:0;}
+            to{opacity:1;}
+        }
+        a{
+            text-decoration:none;
+            color:inherit;
+        }
+
+        header{
+            width:100%;
+            position:fixed;
+            top:0;
+            left:0;
+            z-index:999;
+            display:flex;
+            justify-content:center;
+            background:rgba(0,0,0,0.85);
+            backdrop-filter:blur(8px);
+            border-bottom:1px solid rgba(249,115,22,0.3);
+        }
+        .header-inner{
+            width:100%;
+            max-width:1150px;
+            padding:14px 20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+        .logo{
+            font-size:28px;
+            font-weight:700;
+            letter-spacing:2px;
+            color:#ff5e00;
+            position:relative;
+            padding-left:38px;
+        }
+        .logo::before{
+            content:"";
+            position:absolute;
+            left:0;
+            top:50%;
+            width:28px;
+            height:3px;
+            background:#ff5e00;
+            transform:translateY(-50%);
+            border-radius:6px;
+        }
+        .logo::after{
+            content:"\f44b";
+            font-family:"Font Awesome 6 Free";
+            font-weight:900;
+            position:absolute;
+            left:10px;
+            top:50%;
+            transform:translateY(-50%);
+            font-size:16px;
+            color:#ff5e00;
+            animation:dumbbell-swing 1.2s ease-in-out infinite;
+            transform-origin:center center;
+        }
+        @keyframes dumbbell-swing{
+            0%,100%{transform:translateY(-50%) rotate(0deg);}
+            25%{transform:translateY(-50%) rotate(12deg);}
+            50%{transform:translateY(-50%) rotate(0deg);}
+            75%{transform:translateY(-50%) rotate(-12deg);}
+        }
+
+        nav .nav-pill{
+            background:#020617;
+            border-radius:999px;
+            padding:6px 12px;
+            border:1px solid rgba(148,163,184,0.4);
+            box-shadow:0 16px 35px rgba(0,0,0,0.55);
+        }
+        nav .nav-pill>ul{
+            display:flex;
+            gap:18px;
+            list-style:none;
+            margin:0;
+            padding:0;
+        }
+        nav li{
+            position:relative;
+            display:flex;
+            align-items:center;
+        }
+        nav a{
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            padding:8px 16px;
+            border-radius:999px;
+            font-size:14px;
+            font-weight:500;
+            letter-spacing:0.02em;
+            color:#e5e7eb;
+            white-space:nowrap;
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                transform 0.15s ease,
+                box-shadow 0.15s ease;
+        }
+        nav a:hover{
+            background:radial-gradient(circle at top,#38bdf8 0,#020617 55%);
+            color:#f9fafb;
+            transform:translateY(-2px);
+            box-shadow:0 6px 18px rgba(56,189,248,0.4);
+        }
+        nav a.active{
+            background:linear-gradient(135deg,#f97316,#ea580c);
+            color:#0b1120;
+            box-shadow:0 8px 22px rgba(249,115,22,0.55);
+        }
+
+        .dropdown{
+            position:absolute;
+            top:100%;
+            left:50%;
+            transform:translate(-50%,0);
+            min-width:190px;
+            background:#020617;
+            border-radius:14px;
+            padding:8px 10px;
+            border:1px solid rgba(148,163,184,0.35);
+            box-shadow:0 18px 35px rgba(0,0,0,0.8);
+            opacity:0;
+            pointer-events:none;
+            transition:opacity 0.15s ease,transform 0.15s ease;
+        }
+        .dropdown ul{
+            list-style:none;
+            margin:0;
+            padding:0;
+        }
+        .dropdown li{
+            margin:2px 0;
+        }
+        .dropdown a{
+            width:100%;
+            justify-content:flex-start;
+            padding:7px 10px;
+            border-radius:10px;
+            font-size:13px;
+        }
+        .dropdown a:hover{
+            background:rgba(15,23,42,0.9);
+            transform:none;
+            box-shadow:none;
+        }
+        .has-dropdown:hover>.dropdown{
+            opacity:1;
+            pointer-events:auto;
+            transform:translate(-50%,0);
+        }
+
+        .page-title{
+            margin-top:90px;
+            padding:60px 6%;
+            background:linear-gradient(135deg,rgba(249,115,22,0.1),rgba(15,23,42,0.6));
+            border-bottom:1px solid rgba(249,115,22,0.2);
+            text-align:center;
+        }
+        .page-title h1{
+            font-size:48px;
+            margin:0;
+            color:#fff;
+            font-weight:700;
+        }
+        .page-title p{
+            font-size:16px;
+            color:#9ca3af;
+            margin:12px 0 0 0;
+        }
+
+        .content{
+            max-width:1100px;
+            margin:0 auto;
+            padding:80px 6%;
+        }
+        .bmi-container{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:60px;
+            align-items:center;
+        }
+        .bmi-form{
+            background:rgba(15,23,42,0.8);
+            border:1px solid rgba(249,115,22,0.2);
+            border-radius:16px;
+            padding:40px;
+            backdrop-filter:blur(10px);
+        }
+        .form-group{
+            margin-bottom:24px;
+        }
+        .form-group label{
+            display:block;
+            font-size:14px;
+            font-weight:600;
+            color:#e5e7eb;
+            margin-bottom:8px;
+            text-transform:uppercase;
+            letter-spacing:0.5px;
+        }
+        .input-group{
+            display:flex;
+            gap:8px;
+            align-items:center;
+        }
+        .input-group input{
+            flex:1;
+            padding:14px 16px;
+            background:rgba(2,6,23,0.7);
+            border:1px solid rgba(249,115,22,0.3);
+            border-radius:10px;
+            color:#e5e7eb;
+            font-size:16px;
+            font-family:'Poppins',sans-serif;
+            transition:all 0.2s ease;
+        }
+        .input-group input:focus{
+            outline:none;
+            border-color:#f97316;
+            background:rgba(2,6,23,0.9);
+            box-shadow:0 0 0 3px rgba(249,115,22,0.1);
+        }
+        .input-group span{
+            font-size:13px;
+            color:#9ca3af;
+            font-weight:600;
+            min-width:40px;
+            text-align:center;
+        }
+        .calculate-btn{
+            width:100%;
+            padding:16px;
+            background:linear-gradient(135deg,#f97316,#ea580c);
+            border:none;
+            border-radius:10px;
+            color:#0b1120;
+            font-size:16px;
+            font-weight:700;
+            cursor:pointer;
+            transition:all 0.3s ease;
+            text-transform:uppercase;
+            letter-spacing:1px;
+            margin-top:12px;
+        }
+        .calculate-btn:hover{
+            filter:brightness(1.1);
+            transform:translateY(-2px);
+            box-shadow:0 12px 30px rgba(249,115,22,0.4);
+        }
+        .calculate-btn:active{
+            transform:translateY(0);
+        }
+
+        .bmi-info{
+            background:rgba(15,23,42,0.6);
+            border:1px solid rgba(249,115,22,0.2);
+            border-radius:16px;
+            padding:40px;
+        }
+        .result-box{
+            background:rgba(2,6,23,0.8);
+            border:2px solid rgba(249,115,22,0.3);
+            border-radius:12px;
+            padding:30px;
+            text-align:center;
+            margin-bottom:30px;
+            display:none;
+        }
+        .result-box.show{
+            display:block;
+            animation:slideIn 0.4s ease;
+        }
+        @keyframes slideIn{
+            from{opacity:0;transform:translateY(20px);}
+            to{opacity:1;transform:translateY(0);}
+        }
+        .bmi-value{
+            font-size:56px;
+            font-weight:700;
+            color:#f97316;
+            margin:0 0 8px 0;
+        }
+        .bmi-category{
+            font-size:20px;
+            font-weight:600;
+            margin:8px 0;
+            padding:8px 16px;
+            border-radius:8px;
+            display:inline-block;
+            text-transform:uppercase;
+            letter-spacing:0.5px;
+        }
+        .bmi-category.underweight{
+            background:rgba(59,130,246,0.2);
+            color:#93c5fd;
+        }
+        .bmi-category.normal{
+            background:rgba(34,197,94,0.2);
+            color:#86efac;
+        }
+        .bmi-category.overweight{
+            background:rgba(251,146,60,0.2);
+            color:#fdba74;
+        }
+        .bmi-category.obese{
+            background:rgba(239,68,68,0.2);
+            color:#fca5a5;
+        }
+        .bmi-advice{
+            margin-top:20px;
+            padding:16px;
+            background:rgba(249,115,22,0.1);
+            border-left:4px solid #f97316;
+            border-radius:8px;
+            font-size:14px;
+            line-height:1.6;
+            color:#cbd5f5;
+        }
+
+        .info-section{
+            margin-top:30px;
+        }
+        .info-section h3{
+            font-size:16px;
+            font-weight:700;
+            color:#f97316;
+            margin:0 0 16px 0;
+            text-transform:uppercase;
+            letter-spacing:0.5px;
+        }
+        .bmi-scale{
+            margin-top:20px;
+        }
+        .scale-item{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            margin-bottom:12px;
+            font-size:13px;
+        }
+        .scale-box{
+            width:60px;
+            padding:8px;
+            border-radius:6px;
+            text-align:center;
+            font-weight:600;
+            color:#fff;
+        }
+        .scale-box.underweight{
+            background:rgba(59,130,246,0.4);
+        }
+        .scale-box.normal{
+            background:rgba(34,197,94,0.4);
+        }
+        .scale-box.overweight{
+            background:rgba(251,146,60,0.4);
+        }
+        .scale-box.obese{
+            background:rgba(239,68,68,0.4);
+        }
+
+        footer{
+            background:#030712;
+            padding:60px 6% 40px;
+            margin-top:80px;
+            border-top:1px solid rgba(249,115,22,0.3);
+        }
+        .footer-inner{
+            max-width:1100px;
+            margin:0 auto;
+        }
+        .footer-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:40px;
+            margin-bottom:40px;
+        }
+        .footer-grid h3,
+        .footer-grid h4{
+            color:#e5e7eb;
+            margin-top:0;
+        }
+        .footer-grid h3{
+            color:#f97316;
+            font-size:18px;
+        }
+        .footer-grid h4{
+            font-size:16px;
+            margin-bottom:14px;
+        }
+        .footer-grid p{
+            color:#cbd5f5;
+            line-height:1.8;
+            font-size:14px;
+            margin:8px 0;
+        }
+        .footer-links{
+            list-style:none;
+            padding:0;
+            margin:0;
+        }
+        .footer-links li{
+            margin-bottom:8px;
+        }
+        .footer-links a{
+            color:#cbd5f5;
+            text-decoration:none;
+            font-size:14px;
+            transition:color 0.2s;
+        }
+        .footer-links a:hover{
+            color:#f97316;
+        }
+        .social-row{
+            display:flex;
+            gap:12px;
+        }
+        .social-row a{
+            width:36px;
+            height:36px;
+            border-radius:50%;
+            background:rgba(249,115,22,0.2);
+            border:1px solid rgba(249,115,22,0.5);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#f97316;
+            text-decoration:none;
+            font-size:16px;
+            transition:all 0.2s;
+        }
+        .social-row a:hover{
+            transform:translateY(-2px);
+        }
+        .footer-bottom{
+            border-top:1px solid rgba(249,115,22,0.2);
+            padding-top:20px;
+            text-align:center;
+        }
+        .footer-bottom p{
+            color:#9ca3af;
+            font-size:13px;
+            margin:0;
+        }
+
+        @media(max-width:992px){
+            .bmi-container{
+                grid-template-columns:1fr;
+                gap:40px;
+            }
+            .page-title h1{
+                font-size:36px;
+            }
+        }
+        @media(max-width:768px){
+            .header-inner{
+                flex-direction:column;
+                gap:12px;
+            }
+            nav .nav-pill{
+                padding:6px 14px;
+            }
+            nav .nav-pill>ul{
+                gap:12px;
+            }
+            nav a{
+                font-size:12px;
+                padding:7px 12px;
+            }
+            .page-title{
+                padding:40px 20px;
+            }
+            .page-title h1{
+                font-size:28px;
+            }
+            .content{
+                padding:40px 20px;
+            }
+            .bmi-form,
+            .bmi-info{
+                padding:24px;
+            }
+            .input-group{
+                flex-direction:column;
+                align-items:flex-start;
+            }
+            .input-group span{
+                width:100%;
+                text-align:left;
+                padding-top:6px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="logo">FITNESS</div>
+        <nav>
+            <div class="nav-pill">
+                <ul>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                    <li><a href="misyon-vizyon.html">Misyon-Vizyon</a></li>
+
+                    <li class="has-dropdown">
+                        <a href="paketler.html">Ürünlerimiz</a>
+                        <div class="dropdown">
+                            <ul>
+                                <li><a href="paketler.html#baslangic">Başlangıç Paketi</a></li>
+                                <li><a href="paketler.html#cardio">Cardio &amp; Zayıflama</a></li>
+                                <li><a href="paketler.html#ptpremium">PT Premium</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="has-dropdown">
+                        <a href="birimlerimiz.html">Birimlerimiz</a>
+                        <div class="dropdown">
+                            <ul>
+                                <li><a href="birimlerimiz.html#agirlik">Ağırlık Salonu</a></li>
+                                <li><a href="birimlerimiz.html#cardioalani">Cardio Alanı</a></li>
+                                <li><a href="birimlerimiz.html#studyo">Grup Ders Stüdyosu</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li><a href="egitmenler.html">Eğitmenler</a></li>
+                    <li><a href="galeri.html">Galeri</a></li>
+
+                    <li class="has-dropdown">
+                        <a href="#">Araçlar</a>
+                        <div class="dropdown">
+                            <ul>
+                                <li><a href="bmi.html" class="active">BMI Hesapla</a></li>
+                                <li><a href="istatistikler.html">İstatistikler</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li><a href="duyurular.html">Duyurular</a></li>
+                    <li><a href="iletisim.html">İletişim</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="page-title">
+    <h1><i class="fa-solid fa-calculator"></i> BMI Hesapla</h1>
+    <p>Vücut kitle indeksinizi hesaplayarak genel kilo durumunuzu hızlıca görüntüleyin.</p>
+</div>
+
+<div class="content">
+    <div class="bmi-container">
+        <div class="bmi-form">
+            <form id="bmiForm">
+                <div class="form-group">
+                    <label>Boy</label>
+                    <div class="input-group">
+                        <input type="number" id="height" placeholder="170" min="1" max="300" step="0.1" required>
+                        <span>cm</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Kilo</label>
+                    <div class="input-group">
+                        <input type="number" id="weight" placeholder="70" min="1" max="500" step="0.1" required>
+                        <span>kg</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="calculate-btn">
+                    <i class="fa-solid fa-calculator"></i> Hesapla
+                </button>
+            </form>
+        </div>
+
+        <div class="bmi-info">
+            <div id="resultBox" class="result-box">
+                <div class="bmi-value" id="bmiValue">--</div>
+                <div class="bmi-category" id="bmiCategory">--</div>
+                <div class="bmi-advice" id="bmiAdvice"></div>
+            </div>
+
+            <div class="info-section">
+                <h3><i class="fa-solid fa-info-circle"></i> BMI Nedir?</h3>
+                <p style="font-size:13px;line-height:1.8;color:#cbd5f5;margin:0;">
+                    Vücut Kitle İndeksi (BMI), kilo ve boy oranını kullanarak vücut yağ miktarını kabaca tahmin etmeye yarayan
+                    bir ölçüttür. Ortaya çıkan değer, kişinin genel kilo durumunun sağlık aralığında olup olmadığını
+                    değerlendirmede yardımcı olur.
+                </p>
+            </div>
+
+            <div class="info-section">
+                <h3><i class="fa-solid fa-chart-bar"></i> BMI Kategorileri</h3>
+                <div class="bmi-scale">
+                    <div class="scale-item">
+                        <div class="scale-box underweight">Zayıf</div>
+                        <span>BMI &lt; 18.5</span>
+                    </div>
+                    <div class="scale-item">
+                        <div class="scale-box normal">Normal</div>
+                        <span>BMI 18.5 - 24.9</span>
+                    </div>
+                    <div class="scale-item">
+                        <div class="scale-box overweight">Fazla Kilo</div>
+                        <span>BMI 25 - 29.9</span>
+                    </div>
+                    <div class="scale-item">
+                        <div class="scale-box obese">Obez</div>
+                        <span>BMI ≥ 30</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div>
+                <h3>FITNESS CENTER</h3>
+                <p>
+                    Spor ve fitness alanında başarı, sadece çaba değil; doğru program, doğru ortam ve sürdürülebilir
+                    bir yaklaşım ile mümkün. Bu yolculukta hedeflerinize ulaşmanız için yanınızdayız.
+                </p>
+            </div>
+            <div>
+                <h4>İletişim Bilgileri</h4>
+                <p>
+                    <strong>Adres:</strong><br>
+                    Kocaeli, Türkiye
+                </p>
+                <p>
+                    <strong>Telefon:</strong><br>
+                    +90 (262) XXX-XXXX
+                </p>
+                <p>
+                    <strong>E-Mail:</strong><br>
+                    info@fitnesscenter.com
+                </p>
+            </div>
+            <div>
+                <h4>Hızlı Linkler</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                    <li><a href="paketler.html">Paketlerimiz</a></li>
+                    <li><a href="iletisim.html">İletişim</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Sosyal Medya</h4>
+                <div class="social-row">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>
+                © 2025 FITNESS CENTER - Tüm Hakları Saklıdır.<br>
+                Web Tasarımı: <strong>Kocaeli Üniversitesi - Bilişim Sistemleri Mühendisliği</strong>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script>
+document.getElementById('bmiForm').addEventListener('submit',function(e){
+    e.preventDefault();
+
+    var height=parseFloat(document.getElementById('height').value);
+    var weight=parseFloat(document.getElementById('weight').value);
+
+    if(!height || !weight || height<=0 || weight<=0){
+        alert('Lütfen geçerli boy ve kilo değerleri giriniz.');
+        return;
+    }
+
+    var heightInMeters=height/100;
+    var bmi=weight/(heightInMeters*heightInMeters);
+    var bmiRounded=bmi.toFixed(1);
+
+    var category='';
+    var categoryClass='';
+    var advice='';
+
+    if(bmi<18.5){
+        category='ZAYIF';
+        categoryClass='underweight';
+        advice='Daha sağlıklı şekilde kilo alabilmek için dengeli beslenme ve düzenli egzersiz planı oluşturmanız önerilir. Gerekirse diyetisyen ve antrenör desteği alabilirsiniz.';
+    }else if(bmi<25){
+        category='NORMAL KİLO';
+        categoryClass='normal';
+        advice='Sağlıklı bir kilo aralığındasınız. Bu durumu korumak için düzenli egzersiz ve dengeli beslenmeye devam etmeniz yeterli olacaktır.';
+    }else if(bmi<30){
+        category='FAZLA KİLO';
+        categoryClass='overweight';
+        advice='Fazla kilolar, uzun vadede sağlık risklerini artırabilir. Daha aktif bir yaşam tarzı ve sağlıklı beslenme ile kademeli olarak kilo vermeyi hedefleyebilirsiniz.';
+    }else{
+        category='OBEZ';
+        categoryClass='obese';
+        advice='Obezite, kalp-damar hastalıkları ve benzeri sorunlar için risk faktörüdür. Doktorunuzla ve uzman antrenörlerle birlikte kişisel bir zayıflama planı oluşturmanız faydalı olacaktır.';
+    }
+
+    document.getElementById('bmiValue').textContent=bmiRounded;
+    var catEl=document.getElementById('bmiCategory');
+    catEl.textContent=category;
+    catEl.className='bmi-category '+categoryClass;
+    document.getElementById('bmiAdvice').textContent=advice;
+    document.getElementById('resultBox').classList.add('show');
+});
+</script>
+
+</body>
+</html>
