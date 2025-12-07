@@ -1,70 +1,60 @@
-Bu proje, modern tasarım prensiplerine uygun olarak hazır bir responsive web şablonunu fitness temalı bir kurumsal web sitesine dönüştürmek için geliştirilmiştir.
-Site, kullanıcı dostu bir arayüze, mobil uyumluluğa ve içerik yönetimi işlevselliğini gösteren bir admin paneline sahip kapsamlı bir yapı sunuyor.
-Bölüm / Sayfa	Açıklama
-Ana Sayfa	Slider, hizmet tanıtımları, kampanyalar ve duyuru özetleri
-Paketler	Üyelik ve hizmet paketlerinin detaylı listesi
-Eğitmenler	Profesyonel eğitmen profilleri
-Birimler	Salon içi departman / bölümler
-Duyurular Sayfası	Modal açılır pencere ile detaylı duyuru gösterimi
-İletişim	Google Maps entegrasyonu + şikayet & öneri formu
-Admin Paneli	Duyuru, paket, eğitmen, kullanıcı ve mesaj yönetimi arayüzleri
+📌 Fitness Web Sitesi – Responsive Template Based Project
 
-🧩 Admin Paneli Özellikleri
+Bu proje, Kocaeli Üniversitesi'nin TBL303 Web Tasarımı dersi kapsamında geliştirilen, tamamen responsive bir yapıya sahip modern bir fitness web sitesidir. 
+Projede, hazır bir şablon temel alınarak, renk paleti, sayfa yapıları ve içerikler özgün bir şekilde tasarlanarak profesyonel bir kullanıcı deneyimi sunulmuştur.
+Site; ana sayfa, paketler, eğitmenler, duyurular, birimler ve iletişim gibi temel bölümlerden oluşmaktadır. 
+Ayrıca, içerik yönetimi mantığını göstermek amacıyla kapsamlı bir Admin Paneli tasarlanmıştır. 
+Bu panel üzerinden duyuru, paket, eğitmen, kullanıcı ve mesaj yönetimi gibi arayüzler sunulmaktadır.
+Proje, mobil, tablet ve masaüstü cihazlarla uyumlu bir şekilde çalışmaktadır. 
+Google Harita entegrasyonu, modal duyuru sistemi, dinamik slider yapısı ve istatistiksel bilgi kartları gibi modern tasarım bileşenleri içermektedir. 
+Kod yapısı sade ve anlaşılır tutulmuş, yalnızca front-end odaklı bir geliştirme gerçekleştirilmiştir.
+
+Proje Yapısı:
+·Bölüm / Sayfa	Açıklama
+·Ana Sayfa	Slider, hizmet tanıtımları, kampanyalar ve duyuru özetleri
+·Paketler	Üyelik ve hizmet paketlerinin detaylı listesi
+·Eğitmenler	Profesyonel eğitmen profilleri
+·Birimler	Salon içi departman / bölümler
+·Duyurular Sayfası	Modal açılır pencere ile detaylı duyuru gösterimi
+·İletişim	Google Maps entegrasyonu + şikayet & öneri formu
+·Admin Paneli	Duyuru, paket, eğitmen, kullanıcı ve mesaj yönetimi arayüzleri
+
+Admin Paneli Özellikleri:
 Özellik	Açıklama
-Dashboard	Aktif üye, eğitmen sayısı, ortalama BMI gibi istatistik kartları
-Duyuru Yönetimi	Başlık, içerik, tarih, durum ve dosya ekleme alanlı modal form
-Paket Yönetimi	Paket ekleme, özellik tanımlama, fiyatlandırma arayüzü
-Eğitmen Yönetimi	Ad-soyad, branş, deneyim ve biyografi kayıtları
-Kullanıcı Yönetimi	Üyelerin temel bilgilerini düzenleme
-Mesajlar	İletişim formundan gelen mesajları görüntüleme mantığı
-Tamamen Front-End	Backend gerektirmez; formlar prototip amaçlı çalışır
+·Dashboard	Aktif üye, eğitmen sayısı, ortalama BMI gibi istatistik kartları
+·Duyuru Yönetimi	Başlık, içerik, tarih, durum ve dosya ekleme alanlı modal form
+·Paket Yönetimi	Paket ekleme, özellik tanımlama, fiyatlandırma arayüzü
+·Eğitmen Yönetimi	Ad-soyad, branş, deneyim ve biyografi kayıtları
+·Kullanıcı Yönetimi	Üyelerin temel bilgilerini düzenleme
+·Mesajlar	İletişim formundan gelen mesajları görüntüleme mantığı
+·Tamamen Front-End	Backend gerektirmez; formlar prototip amaçlı çalışır
 
-📱 Responsive Tasarım
+Responsive Tasarım:
 Site, tüm cihaz boyutlarında düzgün görüntülenecek şekilde optimize edilmiştir:
+·Mobil
+·Tablet
+·Masaüstü
+·Yatay/Dikey kullanım destekli
+·Grid yapıları ve esnek bileşenler sayesinde modern bir kullanıcı deneyimi sunar.
 
-Mobil
+Kullanılan Teknolojiler:
+·Teknoloji	Kullanım Amacı
+·HTML5	Sayfa yapısı
+·CSS3	Responsive tasarım, modern UI, grid layout
+·JavaScript	Modal yönetimi, dinamik sekmeler, admin paneli arayüz kontrolleri
+·Font Awesome	İkonlar
+·Google Maps Embed	İletişim sayfası harita entegrasyonu
 
-Tablet
-
-Masaüstü
-
-Yatay/Dikey kullanım destekli
-
-Grid yapıları ve esnek bileşenler sayesinde modern bir kullanıcı deneyimi sunar.
-
-
-📊 Teknik Özellikler ve Kullanılan Teknolojiler
-| Kategori	| Teknoloji / Sistem |
-| Site Temeli	| **HTML5, CSS3, JavaScript** |
-| Responsive Yapı	| **Flexbox, Grid Layout, Mobile-First Tasarım** |
-| UI / Tasarım | **Modern Dark Theme, Smooth Animations, Hover Transitions** |
-| İkon Seti | **Font Awesome 6.5** |
-| Slider Sistemi | **Otomatik geçişli + tıklanabilir slider yapısı** |
-| Duyuru Sistemi | **Modal pop-up, PDF/Word/Resim ekleme mantığı** |
-| Admin Paneli | **Dashboard, istatistik kartları, tablo yönetimi, modal CRUD** |
-| Harita Entegrasyonu	| **Google Maps Embed API** |
-| Form Sistemleri	| **HTML5 Form API — tarih, dosya, e-posta alanları** |
-| Performans Optimizasyonu | **Minimize CSS & JS, optimize görseller** |
-| Sürüm Kontrol	| **Git / GitHub (main branch)** |
-
-🧮 İstatistik ve Chart Mantığı
+İstatistik ve Chart Mantığı
 Proje isterlerine uygun şekilde admin paneli içerisinde istatistik alanı oluşturulmuştur.
 İstenirse Chart.js entegrasyonu ile veri görselleştirme kolayca eklenebilir.
 
-🚀 Kurulum
-
-Projeyi bilgisayara indirmek için:
-
+Kurulum
+1.Projeyi bilgisayara indirmek için:
 git clone https://github.com/jafarliturkay/gymlife-project.git
-
-
-Ardından:
-
+2.Ardından:
 /index.html → Kullanıcı tarafı
 /admin/index.html → Yönetim paneli
 
-🎯 Projenin Amacı
-
+Projenin Amacı
 Bu proje, modern web tasarım prensipleri, responsive şablon kullanımı, içerik yönetim mantığının anlaşılması ve kurumsal bir web sitesinin sıfırdan oluşturulması becerilerini pekiştirmek için geliştirilmiştir.
-
-
