@@ -9,41 +9,38 @@ Proje, mobil, tablet ve masaüstü cihazlarla uyumlu bir şekilde çalışmaktad
 Google Harita entegrasyonu, modal duyuru sistemi, dinamik slider yapısı ve istatistiksel bilgi kartları gibi modern tasarım bileşenleri içermektedir. 
 Kod yapısı sade ve anlaşılır tutulmuş, yalnızca front-end odaklı bir geliştirme gerçekleştirilmiştir.
 
-Proje Yapısı:
-·Bölüm / Sayfa	Açıklama
-·Ana Sayfa	Slider, hizmet tanıtımları, kampanyalar ve duyuru özetleri
-·Paketler	Üyelik ve hizmet paketlerinin detaylı listesi
-·Eğitmenler	Profesyonel eğitmen profilleri
-·Birimler	Salon içi departman / bölümler
-·Duyurular Sayfası	Modal açılır pencere ile detaylı duyuru gösterimi
-·İletişim	Google Maps entegrasyonu + şikayet & öneri formu
-·Admin Paneli	Duyuru, paket, eğitmen, kullanıcı ve mesaj yönetimi arayüzleri
+Proje Yapısı
+·Ana Sayfa: Slider, hizmet tanıtımları, kampanyalar ve duyuru özetleri
+·Paketler: Üyelik ve hizmet paketlerinin detaylı listesi
+·Eğitmenler: Profesyonel eğitmen profilleri
+·Birimler: Salon içi departmanlar
+·Duyurular Sayfası: Modal pencere ile duyuru detay gösterimi
+·İletişim: Google Maps + Şikayet & Öneri formu
+·Admin Paneli: Duyuru, paket, eğitmen, kullanıcı ve mesaj yönetimi arayüzleri
 
-Admin Paneli Özellikleri:
-Özellik	Açıklama
-·Dashboard	Aktif üye, eğitmen sayısı, ortalama BMI gibi istatistik kartları
-·Duyuru Yönetimi	Başlık, içerik, tarih, durum ve dosya ekleme alanlı modal form
-·Paket Yönetimi	Paket ekleme, özellik tanımlama, fiyatlandırma arayüzü
-·Eğitmen Yönetimi	Ad-soyad, branş, deneyim ve biyografi kayıtları
-·Kullanıcı Yönetimi	Üyelerin temel bilgilerini düzenleme
-·Mesajlar	İletişim formundan gelen mesajları görüntüleme mantığı
-·Tamamen Front-End	Backend gerektirmez; formlar prototip amaçlı çalışır
+Admin Paneli Özellikleri
+·Dashboard: Aktif üye, eğitmen sayısı, ortalama BMI gibi istatistik kartları
+·Duyuru Yönetimi: Başlık, içerik, tarih, durum ve dosya ekleme alanları bulunan modal form
+·Paket Yönetimi: Paket ekleme, özellik tanımlama, fiyatlandırma arayüzü
+·Eğitmen Yönetimi: Ad-soyad, branş, deneyim ve biyografi kayıtları
+·Kullanıcı Yönetimi: Üyelerin temel bilgilerini düzenleme
+·Mesajlar: İletişim formundan gelen mesajların görüntüleme mantığı
+·Tamamen Front-End Çalışır: Backend gerektirmez; formlar prototip amaçlıdır
 
-Responsive Tasarım:
-Site, tüm cihaz boyutlarında düzgün görüntülenecek şekilde optimize edilmiştir:
+Responsive Tasarım
+Site tüm cihazlarda sorunsuz görünüm sunacak şekilde optimize edilmiştir:
 ·Mobil
 ·Tablet
 ·Masaüstü
-·Yatay/Dikey kullanım destekli
-·Grid yapıları ve esnek bileşenler sayesinde modern bir kullanıcı deneyimi sunar.
+·Yatay/Dikey kullanım desteği
+Modern grid yapıları ve esnek bileşenlerle güçlü bir kullanıcı deneyimi hedeflenmiştir.
 
-Kullanılan Teknolojiler:
-·Teknoloji	Kullanım Amacı
-·HTML5	Sayfa yapısı
-·CSS3	Responsive tasarım, modern UI, grid layout
-·JavaScript	Modal yönetimi, dinamik sekmeler, admin paneli arayüz kontrolleri
-·Font Awesome	İkonlar
-·Google Maps Embed	İletişim sayfası harita entegrasyonu
+Kullanılan Teknolojiler
+·HTML5: Sayfa yapısı
+·CSS3: Responsive grid, modern UI ve animasyonlar
+·JavaScript: Modal yönetimi, sekme sistemi, admin panel kontrolleri
+·Font Awesome: İkonlar
+·Google Maps Embed: Harita entegrasyonu
 
 İstatistik ve Chart Mantığı
 Proje isterlerine uygun şekilde admin paneli içerisinde istatistik alanı oluşturulmuştur.
