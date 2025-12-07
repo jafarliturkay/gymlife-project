@@ -56,14 +56,8 @@ Ardından:
 /index.html → Kullanıcı tarafı
 /admin/index.html → Yönetim paneli
 
-
-Açıp direkt kullanabilirsin (backend gerektirmez).
-
 🎯 Projenin Amacı
 
 Bu proje, modern web tasarım prensipleri, responsive şablon kullanımı, içerik yönetim mantığının anlaşılması ve kurumsal bir web sitesinin sıfırdan oluşturulması becerilerini pekiştirmek için geliştirilmiştir.
 
-📷 (Opsiyonel) Ekran Görselleri
 
-İstersen bu bölüme ekran görüntüleri de ekleriz.
-Hazır olduğunda görüntüleri bana at, Markdown formatında ekleyeyim.
