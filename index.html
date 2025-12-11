@@ -18,6 +18,7 @@
             font-family: 'Poppins', sans-serif;
             color: #e5e7eb;
             animation: fadeIn 0.5s ease-out;
+            overflow-x: hidden;
         }
 
         @keyframes fadeIn {
@@ -109,7 +110,7 @@
         nav .nav-pill {
             background: #020617;
             border-radius: 999px;
-            padding: 4px 14px;
+            padding: 10px 10px;
             border: 1px solid rgba(148, 163, 184, 0.4);
             box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
         }
@@ -127,7 +128,7 @@
         }
 
         nav a {
-            padding: 8px 14px;
+            padding: 2px 5px;
             border-radius: 999px;
             font-size: 14px;
             font-weight: 500;
@@ -158,6 +159,7 @@
         .dropdown {
             position: absolute;
             top: 100%;
+            display: none;
             left: 50%;
             transform: translate(-50%, 0);
             min-width: 190px;
@@ -680,7 +682,7 @@
         }
 
         footer {
-            padding: 40px 6% 30px;
+            padding: 40px 6%;
             background: #030712;
         }
 
@@ -691,6 +693,22 @@
             font-size: 14px;
         }
 
+        /* Mobil toggle buton */
+        .mobile-nav-toggle {
+            display: none;
+            border: none;
+            background: transparent;
+            color: #e5e7eb;
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: 16px;
+        }
+
+        .mobile-nav-toggle span {
+            pointer-events: none;
+        }
+
+        /* Tablet/küçük ekran düzeni (diğer tasarımlar aynen) */
         @media (max-width: 992px) {
             .hero-inner {
                 grid-template-columns: 1fr;
@@ -715,26 +733,6 @@
             }
         }
 
-        @media (max-width: 700px) {
-            .header-inner {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            nav .nav-pill {
-                padding: 6px 14px;
-            }
-
-            nav .nav-pill > ul {
-                gap: 14px;
-            }
-
-            nav a {
-                font-size: 12px;
-                padding: 7px 12px;
-            }
-        }
-
         @media (max-width: 640px) {
             .features {
                 grid-template-columns: 1fr;
@@ -753,6 +751,115 @@
                 padding-right: 5%;
             }
         }
+
+        /* *** SADECE ANA MENÜ İÇİN MOBİL RESPONSIVE *** */
+        @media (max-width: 768px) {
+
+            .header-inner {
+                max-width: 100%;
+                padding: 10px 12px;
+            }
+
+            .logo {
+                font-size: 22px;
+                padding-left: 32px;
+            }
+
+            /* Hamburger buton görünür */
+            .mobile-nav-toggle {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 38px;
+                height: 38px;
+                border-radius: 999px;
+                background: rgba(15, 23, 42, 0.95);
+                border: 1px solid rgba(148, 163, 184, 0.6);
+            }
+
+            /* Nav, hamburgerden sonra açılan panel olacak */
+            header {
+                justify-content: center;
+            }
+
+            header nav {
+                position: fixed;
+                top: 60px; /* header yüksekliği kadar */
+                left: 0;
+                right: 0;
+                z-index: 998;
+                transform: translateY(-120%);
+                transition: transform 0.25s ease;
+            }
+
+            /* nav-open olduğunda aşağı iner */
+            header nav.nav-open {
+                transform: translateY(0);
+            }
+
+            header nav .nav-pill {
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+                border-radius: 0 0 18px 18px;
+                border-left: none;
+                border-right: none;
+                padding: 12px 16px 16px;
+                background: #020617;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+            }
+
+            header nav .nav-pill > ul {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            header nav .nav-pill > ul > li {
+                width: 100%;
+            }
+
+            header nav .nav-pill > ul > li > a {
+                width: 100%;
+                justify-content: flex-start;
+                text-align: left;
+                padding: 10px 12px;
+                border-radius: 10px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            /* Dropdown’lar mobilde blok olarak alta açılıyor */
+            .dropdown {
+                position: static;
+                transform: none;
+                min-width: 0;
+                width: 100%;
+                margin-top: 4px;
+                box-shadow: none;
+                border-radius: 10px;
+                border: 1px solid rgba(31,41,55,0.9);
+                padding: 6px 6px;
+            }
+
+            .dropdown ul {
+                padding-top: 2px;
+                padding-bottom: 4px;
+            }
+
+            .dropdown ul li a {
+                padding-left: 24px;
+                font-size: 13px;
+            }
+
+            /* Hover olayı mobilde çok takılmasın diye küçük yumuşatma */
+            .has-dropdown:hover > .dropdown,
+            .dropdown:hover {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
     </style>
 </head>
 <body>
@@ -760,7 +867,12 @@
 <header>
     <div class="header-inner">
         <div class="logo">FITNESS</div>
-        <nav>
+
+        <button class="mobile-nav-toggle" id="mobileNavToggle">
+            <span>&#9776;</span>
+        </button>
+
+        <nav id="mainNav">
             <div class="nav-pill">
                 <ul>
                     <li><a href="index.html" class="active">Ana Sayfa</a></li>
@@ -1080,61 +1192,78 @@
 
     const annData = {
         1: {
-            title: 'Yeni Üyeye Hoş Geldin İndirimi',
-            body: 'İlk kez kayıt olan üyeler için seçili paketlerde %20 indirim uygulanmaktadır. Kampanya yalnızca peşin ödemelerde ve sınırlı kontenjanla geçerlidir.'
+            title: "Yeni Üyeye Hoş Geldin İndirimi",
+            body: "İlk kez kayıt olan üyeler için seçili paketlerde %20 indirim uygulanmaktadır. Kampanya yalnızca peşin ödemelerde ve sınırlı kontenjanla geçerlidir."
         },
         2: {
-            title: 'Beslenme Semineri',
-            body: 'Diyetisyen eşliğinde temel beslenme prensipleri, sporcu beslenmesi ve günlük örnek menülerin anlatıldığı ücretsiz seminer düzenlenecektir.'
+            title: "Beslenme Semineri",
+            body: "Diyetisyen eşliğinde temel beslenme prensipleri, sporcu beslenmesi ve günlük örnek menülerin anlatıldığı ücretsiz seminer düzenlenecektir."
         },
         3: {
-            title: 'Hafta Sonu Grup Ders Maratonu',
-            body: 'Cumartesi günü boyunca spinning, HIIT ve pilates derslerine tek bilet ile katılabilirsiniz. Seans saatleri ve kontenjan bilgisi duyuru detayında yer almaktadır.'
+            title: "Hafta Sonu Grup Ders Maratonu",
+            body: "Cumartesi günü boyunca spinning, HIIT ve pilates derslerine tek bilet ile katılabilirsiniz. Seans saatleri ve kontenjan bilgisi duyuru detayında yer almaktadır."
         },
         4: {
-            title: 'Gece Seansı Açılışı',
-            body: 'Yoğun çalışan üyelerimiz için hafta içi çalışma saatleri 23.00’e kadar uzatılmıştır. Gece seanslarında belirli alanlarda kapasite sınırlaması yapılabilir.'
+            title: "Gece Seansı Açılışı",
+            body: "Yoğun çalışan üyelerimiz için hafta içi çalışma saatleri 23.00’e kadar uzatılmıştır. Gece seanslarında belirli alanlarda kapasite sınırlaması yapılabilir."
         },
         5: {
-            title: 'Öğrenciye Özel 3 Ay Paket',
-            body: 'Öğrenci belgesi ibraz eden üyeler için üç aylık toplu ödeme paketinde indirim uygulanır. Paket, dondurma ve devretme şartlarına tabidir.'
+            title: "Öğrenciye Özel 3 Ay Paket",
+            body: "Öğrenci belgesi ibraz eden üyeler için üç aylık toplu ödeme paketinde indirim uygulanır. Paket, dondurma ve devretme şartlarına tabidir."
         }
     };
 
-    const annCards = document.querySelectorAll('.ann-card');
-    const modalBackdrop = document.getElementById('ann-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalBody = document.getElementById('modal-body');
-    const modalClose = document.getElementById('modal-close');
+    const annCards = document.querySelectorAll(".ann-card");
+    const modalBackdrop = document.getElementById("ann-modal");
+    const modalTitle = document.getElementById("modal-title");
+    const modalBody = document.getElementById("modal-body");
+    const modalClose = document.getElementById("modal-close");
 
     function openModal(id) {
         const data = annData[id];
-        if (!data) {
-            return;
-        }
+        if (!data) return;
         modalTitle.textContent = data.title;
         modalBody.textContent = data.body;
-        modalBackdrop.classList.add('open');
+        modalBackdrop.classList.add("open");
     }
 
     function closeModal() {
-        modalBackdrop.classList.remove('open');
+        modalBackdrop.classList.remove("open");
     }
 
     annCards.forEach(function (card) {
-        card.addEventListener('click', function () {
-            const id = card.getAttribute('data-ann');
+        card.addEventListener("click", function () {
+            const id = card.getAttribute("data-ann");
             openModal(id);
         });
     });
 
-    modalClose.addEventListener('click', closeModal);
+    modalClose.addEventListener("click", closeModal);
 
-    modalBackdrop.addEventListener('click', function (e) {
+    modalBackdrop.addEventListener("click", function (e) {
         if (e.target === modalBackdrop) {
             closeModal();
         }
     });
+
+    /* Mobil menü JS – sadece nav için */
+    const mobileToggle = document.getElementById("mobileNavToggle");
+    const mainNav = document.getElementById("mainNav");
+
+    if (mobileToggle && mainNav) {
+        mobileToggle.addEventListener("click", function () {
+            mainNav.classList.toggle("nav-open");
+        });
+
+        const navLinks = mainNav.querySelectorAll("a");
+        navLinks.forEach(function (link) {
+            link.addEventListener("click", function () {
+                if (window.innerWidth <= 768) {
+                    mainNav.classList.remove("nav-open");
+                }
+            });
+        });
+    }
 </script>
 
 </body>
